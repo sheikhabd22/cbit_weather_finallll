@@ -509,10 +509,75 @@ body {
   font-size: 1.1rem;
   margin-bottom: 8px;
 }
-.realtime-map, .pressure-chart {
+.realtime-map, .forecast-summary, .forecast-carousel-container {
   padding: 14px;
   border-radius: 16px;
   background: rgba(255,255,255,0.18);
+}
+.realtime-map {
+  min-height: 300px;
+}
+.realtime-map .leaflet-container {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.forecast-carousel-container {
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.18);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 250px;
+  overflow: hidden;
+}
+.forecast-carousel-container .forecast-carousel {
+  height: 100%;
+}
+.forecast-carousel-container .forecast-list {
+  animation: scroll-forecast 25s linear infinite;
+  height: 100%;
+  align-items: center;
+}
+.forecast-carousel-container .forecast-card {
+  min-width: 100px;
+  margin: 0 6px;
+  padding: 12px 8px;
+}
+.forecast-carousel-container .forecast-title {
+  font-size: 0.9em;
+}
+.forecast-carousel-container .forecast-date {
+  font-size: 0.8em;
+}
+.forecast-carousel-container .forecast-temp {
+  font-size: 1.5em;
+}
+.forecast-carousel-container .forecast-min {
+  font-size: 0.85em;
+}
+.forecast-carousel-container .forecast-condition {
+  font-size: 0.8em;
+}
+.forecast-carousel-container .forecast-icon {
+  font-size: 1.8em;
+}
+.forecast-summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.summary-content {
+  color: #2d3b57;
+  font-size: 0.95em;
+  line-height: 1.6;
+}
+.summary-content p {
+  margin: 8px 0;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 8px;
+  border-left: 3px solid #228ec3;
 }
 .chart-wrap {
   background: #fff;

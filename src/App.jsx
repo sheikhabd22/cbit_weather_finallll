@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./styles.css";
 import CurrentWeather from "./components/CurrentWeather";
 import RealtimeMap from "./components/RealtimeMap";
-import PressureChart from "./components/PressureChart";
-import { fetchOpenMeteoWeather, fetchPressureSeries } from "./services/openMeteo";
+import ForecastList from "./components/ForecastList";
+import { fetchOpenMeteoWeather } from "./services/openMeteo";
 
 function App() {
   const [now, setNow] = useState(null);
   const [days, setDays] = useState([]);
-  const [pressure, setPressure] = useState({ labels: [], values: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [coords, setCoords] = useState({ lat: 17.392109, lon: 78.319494 });
@@ -26,8 +25,6 @@ function App() {
         });
         setNow(now);
         setDays(forecast);
-        const series = await fetchPressureSeries({ latitude: liveCoords.lat, longitude: liveCoords.lon, pastDays: 2 });
-        setPressure(series);
       } catch (err) {
         setError(err?.message || "Failed to load weather");
       } finally {
@@ -71,9 +68,13 @@ function App() {
           </div>
         )}
         {now && <CurrentWeather data={now} />}
+        
         <section className="map-chart-grid glass-bg">
           <RealtimeMap latitude={coords.lat} longitude={coords.lon} />
-          <PressureChart labels={pressure.labels} values={pressure.values} />
+          <div className="forecast-carousel-container">
+            <h3 className="section-title">7-Day Forecast</h3>
+            <ForecastList days={days} />
+          </div>
         </section>
 
         {/* Brand strip under maps */}

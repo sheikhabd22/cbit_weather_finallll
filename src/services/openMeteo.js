@@ -71,24 +71,4 @@ export async function fetchOpenMeteoWeather({ latitude, longitude, locationLabel
   });
 
   return { now, forecast: days };
-} 
-
-// Fetch recent hourly surface pressure series for a given lat/lon
-// Returns arrays of ISO timestamps and corresponding pressure values (hPa)
-export async function fetchPressureSeries({ latitude, longitude, pastDays = 2 }) {
-  const params = new URLSearchParams({
-    latitude: String(latitude),
-    longitude: String(longitude),
-    hourly: "surface_pressure",
-    past_days: String(pastDays),
-    timezone: "auto",
-  });
-  const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Open-Meteo pressure error: ${res.status}`);
-  const data = await res.json();
-
-  const labels = (data?.hourly?.time ?? []).map((iso) => new Date(iso));
-  const values = (data?.hourly?.surface_pressure ?? []);
-  return { labels, values };
 }
